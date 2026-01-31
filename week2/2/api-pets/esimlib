@@ -1,0 +1,80 @@
+if (require.main === module) {
+ let result = addOne("John Smith", "Great session on React components! I found the examples very helpful.", 5, "mobile");
+ console.log(result);
+ console.log("getAll called:", getAll());
+ console.log("findById called:", findById(1));
+ // rest of the tests here
+}
+
+let feedbackArray = [];
+let nextId = 1;
+
+
+function addOne(sender, message, rating, platform) {
+  if (!sender || !message || !rating || !platform) {
+    return false;
+  }
+
+  const newFeedback = {
+    id: nextId++,
+    sender,
+    message,
+    rating,
+    platform
+  };
+
+  feedbackArray.push(newFeedback);
+  return newFeedback;
+}
+
+const getAll = () => {
+  return feedbackArray;
+};
+
+const findById = (id) => {
+  const feedback = feedbackArray.find((item) => item.id == id);
+  if (feedback) {
+    return feedback;
+  } else {
+    return false;
+  }
+}
+const updateOneById = (id, updatedData) => {
+  const feedback = findById(id);
+  if (feedback) {
+    // Update properties only if provided in updatedData
+    if (updatedData.sender) {
+      feedback.sender = updatedData.sender;
+    }
+    if (updatedData.message) {
+      feedback.message = updatedData.message;
+    }
+    if (updatedData.rating) {
+      feedback.rating = updatedData.rating;
+    }
+    if (updatedData.platform) {
+      feedback.platform = updatedData.platform;
+    }
+    return feedback;
+  }
+  return false;
+}
+
+function deleteOneById(id) {
+    const feedback = findById(id);
+    if (feedback) {
+        const initialLength = feedbackArray.length;
+        feedbackArray = feedbackArray.filter(feedback => feedback.id !== Number(id)); // Filters out the feedback with the matching ID
+        return feedbackArray.length < initialLength; // Returns true if the array length decreased, indicating successful deletion
+    }
+    return false; // Return false if the item was not found
+}
+
+Feedback = {
+    getAll,
+    addOne,
+    findById,
+    updateOneById,
+    deleteOneById
+};
+module.exports = Feedback;
