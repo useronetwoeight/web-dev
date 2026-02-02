@@ -11,11 +11,11 @@ let petArray = [];
 
 let nextId = 1;
 
-const getAll = () => {
+function getAll() {
   return petArray;
 }
 
-const addOne = (name, species, age, color, weight) => {
+function addOne(name, species, age, color, weight) {
   // Check if any parameter is empty or undefined
   if (!name || !species || !age || !color || !weight) {
     return false;
@@ -34,7 +34,7 @@ const addOne = (name, species, age, color, weight) => {
   return newPet;
 }
 
-const findById = (id) => {
+function findById(id) {
   const pet = petArray.find((item) => item.id == id);
   if (pet) {
     return pet;
@@ -43,7 +43,7 @@ const findById = (id) => {
   }
 }
 
-const updateOneById = (id, updatedData) => {
+function updateOneById(id, updatedData) {
   const pet = findById(id);
   if (pet) {
     // Update properties only if provided in updatedData
@@ -67,7 +67,7 @@ const updateOneById = (id, updatedData) => {
   return false;
 }
 
-const deleteOneById = (id) => {
+function deleteOneById(id) {
   const pet = findById(id);
   if (pet) {
     const initialLength = petArray.length;
